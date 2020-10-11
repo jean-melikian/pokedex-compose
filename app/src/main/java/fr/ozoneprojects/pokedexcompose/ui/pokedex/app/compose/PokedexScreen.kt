@@ -42,7 +42,6 @@ fun PokedexList(modifier: Modifier = Modifier) {
     )
     val pokedexEntries by pokedexVm.pokedexEntries().observeAsState()
     pokedexVm.getAll()
-
     pokedexEntries?.let { pokemonsList ->
         LazyColumnForIndexed(
             modifier = modifier.fillMaxWidth(),
@@ -53,12 +52,13 @@ fun PokedexList(modifier: Modifier = Modifier) {
                 .padding(horizontal = 8.dp)
 
             PokedexEntryRoundedCard(
-                itemModifier.then(
+                modifier = itemModifier.then(
                     when (index) {
                         pokemonsList.lastIndex -> Modifier.padding(top = 8.dp, bottom = 8.dp)
                         else -> Modifier.padding(top = 8.dp)
                     }
-                ), pokemon
+                ),
+                pokemon = pokemon
             )
         }
     }

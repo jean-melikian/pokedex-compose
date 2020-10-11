@@ -34,16 +34,12 @@ fun PokedexEntryRoundedCard(
     pokemon: PokemonUi
 ) {
     val color by remember { mutableStateOf(Color(pokemon.types.first().color)) }
-
     Surface(
-        modifier = modifier.then(
-            Modifier.clip(RoundedCornerShape(8.dp))
-        ),
+        modifier = modifier.then(Modifier.clip(RoundedCornerShape(8.dp))),
         color = color
     ) {
         PokedexEntry(modifier, pokemon)
     }
-
 }
 
 @Composable
@@ -52,10 +48,8 @@ private fun PokedexEntry(
     pokemon: PokemonUi
 ) {
     val pkmn by remember { mutableStateOf(pokemon) }
-
     Row(modifier = modifier.padding(8.dp)) {
         PokemonImage(modifier = Modifier.padding(4.dp), pokemon = pkmn)
-
         val mainTextModifier = Modifier.align(Alignment.CenterVertically)
 
         Column {
@@ -90,20 +84,16 @@ private fun PokemonTypes(
     modifier: Modifier,
     pokemon: PokemonUi
 ) {
-    LazyRowFor(items = pokemon.types) { type ->
-        Surface(
-            Modifier.padding(4.dp),
-            shape = RoundedCornerShape(4.dp)
-        ) {
-            Text(
-                modifier = modifier
-                    .clip(RoundedCornerShape(4.dp))
-                    .background(color = Color.White)
-                    .padding(4.dp),
-                text = type.name.capitalize(Locale.getDefault()),
-                color = Color(type.color)
-            )
-        }
+    LazyRowFor(modifier = modifier, items = pokemon.types) { type ->
+        Text(
+            modifier = modifier.padding(4.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(color = Color.White)
+                .padding(4.dp),
+            text = type.name.capitalize(Locale.getDefault()),
+            color = Color(type.color)
+        )
+
     }
 }
 
@@ -117,15 +107,13 @@ private fun PokemonImage(
         .aspectRatio(1f)
     Box(modifier = modifier) {
         val pokeballImage = vectorResource(R.drawable.ic_pokeball)
+
         Image(
             modifier = modif,
             asset = pokeballImage,
             colorFilter = ColorFilter(MaterialTheme.colors.onSurface, BlendMode.SrcAtop)
         )
-        CoilImage(
-            modifier = modif.padding(4.dp),
-            model = pokemon.spriteUri
-        )
+        CoilImage(modifier = modif.padding(4.dp), model = pokemon.spriteUri)
     }
 }
 
